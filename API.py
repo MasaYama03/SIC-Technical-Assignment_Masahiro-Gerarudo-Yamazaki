@@ -45,6 +45,7 @@ mqtt_client.loop_start()
 @app.route('/api/dht', methods=['GET'])
 def get_dht_data():
     with data_lock:
+        # Return temperature and humidity data as JSON
         if temperature_data is None or humidity_data is None:
             return jsonify({"error": "No data available"}), 500
         
@@ -96,4 +97,5 @@ def home():
     return render_template_string(html_content, temperature=temperature, humidity=humidity)
 
 if __name__ == '__main__':
+    # Run the Flask app
     app.run(debug=True)
